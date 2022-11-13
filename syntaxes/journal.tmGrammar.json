@@ -1,0 +1,144 @@
+{
+    "scopeName": "source.journal",
+    "patterns": [
+        {
+            "include": "#selection"
+        },
+        {
+            "include": "#function"
+        },
+        {
+            "include": "#prompt"
+        },
+        {
+            "include": "#comment"
+        },
+        {
+            "include": "#block"
+        }
+    ],
+    "repository": {
+        "selection": {
+            "patterns": [
+                {
+                    "include": "#selec-expression"
+                }
+            ]
+        },
+        "prompt":{
+            "patterns": [
+                {
+                    "include": "#prompt-expression"
+                }
+            ]
+        },
+        "function": {
+            "patterns": [
+                {
+                    "include": "#func-expression"
+                }
+            ]
+        },
+        "block": {
+            "begin": "\\{",
+            "end": "\\}",
+            "beginCaptures": {
+                "0": {
+                    "name": "punctuation.definition.list.begin.markdown"
+                }
+            },
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.definition.list.end.markdown"
+                }
+            },
+            "name": "entity.name.namespace",
+            "patterns": [
+                {
+                    "include": "#selection"
+                },
+                {
+                    "include": "#function"
+                },
+                {
+                    "include": "#prompt"
+                },
+                {
+                    "include": "#comment"
+                }
+            ]
+        },
+        "selec-expression": {
+            "begin": "\\[",
+            "end": "\\]",
+            "beginCaptures": {
+                "0": {
+                    "name": "constant.begin.bracket"
+                }
+            },
+            "endCaptures": {
+                "0": {
+                    "name": "constant.end.bracket"
+                }
+            },
+            "name": "constant.other",
+            "patterns": [{
+                "name": "string.double",
+                "match": "[^\\]]*"
+            }]
+        },
+        "func-expression" : {
+            "begin": "<",
+            "end": ">",
+            "beginCaptures": {
+                "0": {
+                    "name": "entity.function.begin"
+                }
+            },
+            "endCaptures": {
+                "0": {
+                    "name": "entity.function.end"
+                }
+            },
+            "name": "entity.name.function",
+            "patterns": [
+                {
+                    "include": "#func-params"
+                }
+            ]
+        },
+        "func-params" : {
+            "begin": "\\(",
+            "end": "\\)",
+            "beginCaptures": {
+                "0": {
+                    "name": "entity.function.params.begin"
+                }
+            },
+            "endCaptures": {
+                "0": {
+                    "name": "entity.function.params.end"
+                }
+            },
+            "name": "keyword.operator.type.php",
+            "patterns": [
+                {
+                    "name": "variable.other.class.php",
+                    "match": "[^\\)]*"
+                }
+            ]
+        },
+        "prompt-expression": {
+            "match" : "(.*?):(.*?)$",
+            "captures" : {
+                "1" : {"name" : "variable.other.class.php"},
+                "2" : {"name" : "string"}
+            },
+            "name" : "keyword.operator.type.php" 
+        },
+        "comment": {
+            "name": "comment",
+            "match": "\\#.*$"
+        }
+    }
+}
